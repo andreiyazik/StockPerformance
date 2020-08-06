@@ -1,0 +1,28 @@
+<!--<div>
+  <p>Period:</p>
+  <kendo-dropdownlist [data]="periods">
+  </kendo-dropdownlist>
+</div>-->
+<div class="form-inline">
+  <div class="form-group">
+      <input class="form-control" type="text">
+  </div>
+  <button type="button" class="btn btn-primary">Primary</button>
+</div>
+<kendo-chart>
+  <kendo-chart-legend position="bottom" [visible]="true">
+  </kendo-chart-legend>
+  <kendo-chart-title text="Stock Performance"></kendo-chart-title>
+  <kendo-chart-category-axis>
+      <kendo-chart-category-axis-item
+          [categories]="['Jan', 'Feb']"
+          [title]="{ text: 'Months' }">
+      </kendo-chart-category-axis-item>
+  </kendo-chart-category-axis>
+  <kendo-chart-series>
+    <kendo-chart-series-item name="MSFT" type="area" [data]="[123, 276, 310, 212, 240, 156, 98]">
+    </kendo-chart-series-item>
+    <kendo-chart-series-item name="SPY" type="area" [data]="[165, 210, 287, 144, 190, 167, 212]">
+    </kendo-chart-series-item>
+  </kendo-chart-series>
+</kendo-chart>
