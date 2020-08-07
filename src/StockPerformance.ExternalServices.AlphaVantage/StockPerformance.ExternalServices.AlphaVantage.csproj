@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StockPerformance.Domain\StockPerformance.Domain.csproj" />
+    <ProjectReference Include="..\StockPerformance.ExternalServices.Contracts\StockPerformance.ExternalServices.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

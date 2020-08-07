@@ -24,6 +24,13 @@ namespace StockPerformance.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices( IServiceCollection services )
         {
+            services.AddCors( o => o.AddPolicy( "CorsPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            } ) );
+
             services.AddMediatR( typeof( Startup ).GetTypeInfo().Assembly );
             services.AddControllers();
 
@@ -55,6 +62,8 @@ namespace StockPerformance.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors( "CorsPolicy" );
 
             app.UseAuthorization();
 

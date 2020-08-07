@@ -18,3 +18,11 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+.form-inline > * {
+  margin-right: 10px;
+}
+
+.error-message {
+  color: red;
+}

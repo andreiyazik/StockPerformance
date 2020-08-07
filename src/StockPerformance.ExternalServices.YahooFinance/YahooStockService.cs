@@ -24,23 +24,25 @@ namespace StockPerformance.ExternalServices.YahooFinance
 
         public async Task<IEnumerable<CandleViewModel>> GetHistoryAsync( string symbol, EPeriod period )
         {
-            var endDate = DateTime.UtcNow;
-            var startDate = period == EPeriod.Day ? endDate.AddDays( -1 ) :
-                period == EPeriod.Week ? endDate.AddDays( -6 ) : endDate.AddMonths( -1 );
-
-            var client = new RestClient( string.Format(_yahoo_finance_settings.Value.GetHistoryUrl, startDate.ToUnixTimestamp(), endDate.ToUnixTimestamp(), symbol ) );
-            var request = new RestRequest( Method.GET );
-            request.AddHeader( "x-rapidapi-host", _yahoo_finance_settings.Value.XRapidApiHost );
-            request.AddHeader( "x-rapidapi-key", _yahoo_finance_settings.Value.ApiKey );
-            var response = await client.ExecuteAsync( request );
-
-            var result = JsonConvert.DeserializeObject<StockHistoryResponse>( response.Content );
-            if(result == null || result.Prices == null)
+            try
             {
-                throw new Exception( "Incorrect symbol provided, or no data found." );
-            }
+                var endDate = DateTime.UtcNow;
+                var startDate = period == EPeriod.Day ? endDate.AddDays( -1 ) :
+                    period == EPeriod.Week ? endDate.AddDays( -6 ).Date : endDate.AddMonths( -1 );
 
-            return result.Prices;
+                var client = new RestClient( string.Format( _yahoo_finance_settings.Value.GetHistoryUrl, startDate.ToUnixTimestamp(), endDate.ToUnixTimestamp(), symbol ) );
+                var request = new RestRequest( Method.GET );
+                request.AddHeader( "x-rapidapi-host", _yahoo_finance_settings.Value.XRapidApiHost );
+                request.AddHeader( "x-rapidapi-key", _yahoo_finance_settings.Value.ApiKey );
+                var response = await client.ExecuteAsync( request );
+
+                var result = JsonConvert.DeserializeObject<StockHistoryResponse>( response.Content );
+                return result.Prices;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception( "Incorrect symbol provided, or error loading data." );
+            }
         }
     }
 }
