@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using StockPerformance.ExternalServices.AlphaVantage;
 using StockPerformance.ExternalServices.Contracts;
 using StockPerformance.ExternalServices.YahooFinance;
 using StockPerformance.Infrastructure.Configuration;
@@ -34,7 +35,7 @@ namespace StockPerformance.API
             services.AddMediatR( typeof( Startup ).GetTypeInfo().Assembly );
             services.AddControllers();
 
-            services.AddTransient<IStockService, YahooStockService>();
+            services.AddTransient<IStockService, AlphaVantageStockService>();
 
             services.Configure<YahooFinanceSettings>( Configuration.GetSection( nameof( YahooFinanceSettings ) ) );
             services.Configure<AlphaVantageSettings>( Configuration.GetSection( nameof( AlphaVantageSettings ) ) );

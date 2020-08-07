@@ -1,11 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using StockPerformance.Domain.Entities;
+using System.Reflection;
 
 namespace StockPerformance.Persistence.SQLServer
 {
     public class DataContext : DbContext
     {
+        public DataContext( DbContextOptions<DataContext> options )
+            : base( options )
+        {
+        }
+
+        public DbSet<Candle> Candles { get; set; }
+
+        protected override void OnModelCreating( ModelBuilder builder )
+        {
+            builder.ApplyConfigurationsFromAssembly( Assembly.GetExecutingAssembly() );
+            base.OnModelCreating( builder );
+        }
     }
 }

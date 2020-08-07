@@ -37,7 +37,11 @@ export class HomeComponent {
     this.loading = true;
     this.loaded = false;
     this.isError = false;
-    this.http.get<PerformanceComparisonResult>(this.apiUrl + 'stock/performance-comparison?symbol=' + this.symbol + '&period=' + this.period).subscribe(result => {
+    this.http.get<PerformanceComparisonResult>(this.apiUrl + 'stock/performance-comparison?symbol=' + 
+      this.symbol + '&period=' + 
+      this.period + '&granularity=' + 
+      this.granularity)
+    .subscribe(result => {
       if(result.error) {
         this.isError = true;
         this.errorMessage = result.error.errorMessage;

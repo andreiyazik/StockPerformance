@@ -22,7 +22,10 @@ namespace StockPerformance.ExternalServices.YahooFinance
             _yahoo_finance_settings = yahoo_finance_settings;
         }
 
-        public async Task<IEnumerable<CandleViewModel>> GetHistoryAsync( string symbol, EPeriod period )
+        public async Task<IEnumerable<CandleViewModel>> GetHistoryAsync( string symbol, 
+            EPeriod period, 
+            /** Intraday is not supported by yahoo Finance API **/
+            EGranularity granularity )
         {
             try
             {

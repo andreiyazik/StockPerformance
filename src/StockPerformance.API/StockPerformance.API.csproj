@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\StockPerformance.ExternalServices.AlphaVantage\StockPerformance.ExternalServices.AlphaVantage.csproj" />
     <ProjectReference Include="..\StockPerformance.ExternalServices.Contracts\StockPerformance.ExternalServices.Contracts.csproj" />
     <ProjectReference Include="..\StockPerformance.ExternalServices.YahooFinance\StockPerformance.ExternalServices.YahooFinance.csproj" />
     <ProjectReference Include="..\StockPerformance.Infrastructure\StockPerformance.Infrastructure.csproj" />

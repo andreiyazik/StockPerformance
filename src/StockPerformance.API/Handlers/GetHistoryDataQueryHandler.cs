@@ -32,8 +32,8 @@ namespace StockPerformance.API.Handlers
 
                 var symbolToCompare = _configuration["SymbolToCompare"];
 
-                var symbolResult = await _stockService.GetHistoryAsync( request.Symbol, request.Period );
-                var symbolToCompareResult = await _stockService.GetHistoryAsync( symbolToCompare, request.Period );
+                var symbolResult = await _stockService.GetHistoryAsync( request.Symbol, request.Period, request.Granularity );
+                var symbolToCompareResult = await _stockService.GetHistoryAsync( symbolToCompare, request.Period, request.Granularity );
 
                 var symbolPerformance = symbolResult.Select( s => Double.Parse( s.Close.ToString() ) ).ToList();
                 var symbolToComparePerformance = symbolToCompareResult.Select( s => Double.Parse( s.Close.ToString() ) ).ToList();

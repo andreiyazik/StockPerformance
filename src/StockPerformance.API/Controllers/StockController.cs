@@ -19,9 +19,9 @@ namespace StockPerformance.API.Controllers
 
         [HttpGet]
         [Route("performance-comparison")]
-        public async Task<BaseResponse> GetPerformanceComparison( string symbol = "", EPeriod period = EPeriod.Week )
+        public async Task<BaseResponse> GetPerformanceComparison( string symbol = "", EPeriod period = EPeriod.Week, EGranularity granularity = EGranularity.Standard )
         {
-            var query = new GetHistoryDataQuery( symbol, period );
+            var query = new GetHistoryDataQuery( symbol, period, granularity );
 
             try
             {

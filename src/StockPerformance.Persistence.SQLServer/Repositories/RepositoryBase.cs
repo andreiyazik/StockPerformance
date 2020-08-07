@@ -2,13 +2,11 @@
 using StockPerformance.Domain.Entities;
 using StockPerformance.Persistence.Contracts.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace StockPerformance.Persistence.SQLServer.Repositories
 {
-    public class RepositoryBase<TEntity> : IRepositoryBase<TEntity>, IDisposable where TEntity : IEntity
+    public class RepositoryBase<TEntity> : IRepositoryBase<TEntity>, IDisposable where TEntity : class, IEntity
     {
         protected DataContext _dataContext;
         protected DbSet<TEntity> _entitySet;

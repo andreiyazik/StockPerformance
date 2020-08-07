@@ -28,5 +28,20 @@ namespace StockPerformance.Infrastructure.ExtensionMethods
                 .TotalSeconds
                 .ToString( "F0" );
         }
+
+        public static DateTime FirstDayOfWeek( this DateTime dt )
+        {
+            var culture = System.Threading.Thread.CurrentThread.CurrentCulture;
+            var diff = dt.DayOfWeek - culture.DateTimeFormat.FirstDayOfWeek;
+            if (diff < 0)
+                diff += 7;
+
+            return dt.AddDays( -diff ).Date;
+        }
+
+        public static DateTime FirstDayOfMonth( this DateTime dt )
+        {
+            return new DateTime( dt.Year, dt.Month, 1 ).Date;
+        }
     }
 }

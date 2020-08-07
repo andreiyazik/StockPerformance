@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using StockPerformance.Domain.Entities;
-using System;
 
 namespace StockPerformance.Domain.ViewModels
 {
@@ -22,25 +21,25 @@ namespace StockPerformance.Domain.ViewModels
         }
 
         [JsonProperty( "date" )]
-        public long Date { get; internal set; }
+        public long Date { get; set; }
 
         [JsonProperty( "open" )]
-        public decimal Open { get; internal set; }
+        public decimal Open { get; set; }
 
         [JsonProperty( "high" )]
-        public decimal High { get; internal set; }
+        public decimal High { get; set; }
 
         [JsonProperty( "low" )]
-        public decimal Low { get; internal set; }
+        public decimal Low { get; set; }
 
         [JsonProperty( "close" )]
-        public decimal Close { get; internal set; }
+        public decimal Close { get; set; }
 
         [JsonProperty( "volume" )]
-        public long Volume { get; internal set; }
+        public long Volume { get; set; }
 
         [JsonProperty( "adjclose" )]
-        public decimal? AdjustedClose { get; internal set; }
+        public decimal? AdjustedClose { get; set; }
 
         public Candle CreateEntity( string symbol )
         {

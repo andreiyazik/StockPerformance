@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ServiceStack.Text.Core" Version="5.9.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\StockPerformance.ExternalServices.Contracts\StockPerformance.ExternalServices.Contracts.csproj" />
   </ItemGroup>
 

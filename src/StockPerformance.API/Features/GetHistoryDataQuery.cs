@@ -10,11 +10,13 @@ namespace StockPerformance.API.Features
     {
         public string Symbol { get; private set; }
         public EPeriod Period { get; private set; }
+        public EGranularity Granularity { get; private set; }
 
-        public GetHistoryDataQuery(string symbol, EPeriod period)
+        public GetHistoryDataQuery(string symbol, EPeriod period, EGranularity granularity)
         {
             Symbol = symbol;
             Period = period;
+            Granularity = granularity;
         }
     }
 }
