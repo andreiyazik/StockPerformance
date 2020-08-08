@@ -9,6 +9,7 @@ using StockPerformance.Infrastructure.Configuration;
 using StockPerformance.Infrastructure.ExtensionMethods;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace StockPerformance.ExternalServices.YahooFinance
@@ -40,7 +41,7 @@ namespace StockPerformance.ExternalServices.YahooFinance
                 var response = await client.ExecuteAsync( request );
 
                 var result = JsonConvert.DeserializeObject<StockHistoryResponse>( response.Content );
-                return result.Prices;
+                return result.Prices.OrderBy(r => r.Date).ToList();
             }
             catch(Exception ex)
             {

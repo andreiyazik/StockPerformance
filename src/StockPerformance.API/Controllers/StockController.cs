@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using StockPerformance.API.Features;
 using StockPerformance.Domain.Enums;
 using StockPerformance.Domain.ViewModels;
@@ -12,16 +13,21 @@ namespace StockPerformance.API.Controllers
     [Route( "stock" )]
     public class StockController : BaseController
     {
-        public StockController( IMediator mediator )
+        private readonly IConfiguration _configuration;
+
+        public StockController( IMediator mediator, IConfiguration configuration )
             : base( mediator )
         {
+            _configuration = configuration;
         }
 
         [HttpGet]
         [Route("performance-comparison")]
-        public async Task<BaseResponse> GetPerformanceComparison( string symbol = "", EPeriod period = EPeriod.Week, EGranularity granularity = EGranularity.Standard )
+        public async Task<BaseResponse> GetPerformanceComparison( string symbol, EPeriod period, EGranularity granularity )
         {
-            var query = new GetHistoryDataQuery( symbol, period, granularity );
+            var symbolToCompare = _configuration["SymbolToCompare"];
+
+            var query = new GetPerformanceComparisonQuery( symbol, symbolToCompare, period, granularity );
 
             try
             {
@@ -30,7 +36,7 @@ namespace StockPerformance.API.Controllers
             }
             catch( Exception ex )
             {
-                return new ErrorResponse<GetHistoryDataQuery>( ex, query );
+                return new ErrorResponse<GetPerformanceComparisonQuery>( ex, query );
             }
         }
     }

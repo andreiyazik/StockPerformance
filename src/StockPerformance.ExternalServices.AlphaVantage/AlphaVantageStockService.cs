@@ -27,9 +27,8 @@ namespace StockPerformance.ExternalServices.AlphaVantage
         {
             try
             {
-                string function = granularity == EGranularity.Standard ? "TIME_SERIES_DAILY" : "TIME_SERIES_INTRADAY";
-                string interval = granularity == EGranularity.Standard ? "&interval=60min" : string.Empty;
-                var response = await string.Format( _alpha_vantage_settings.Value.GetHistoryUrl, function, symbol, _alpha_vantage_settings.Value.ApiKey, interval )
+                string function = granularity == EGranularity.Daily ? "TIME_SERIES_DAILY" : "TIME_SERIES_INTRADAY";
+                var response = await string.Format( _alpha_vantage_settings.Value.GetHistoryUrl, function, symbol, _alpha_vantage_settings.Value.ApiKey )
                                 .GetStringFromUrlAsync();
                 var formattedResult = response.FromCsv<List<StockHistoryResponse>>();
 
@@ -37,7 +36,8 @@ namespace StockPerformance.ExternalServices.AlphaVantage
                     : period == EPeriod.Week ? DateTime.Now.FirstDayOfWeek()
                     : DateTime.Now.FirstDayOfMonth();
 
-                var result = formattedResult.Where( r => r.Timestamp >= startDate )
+                var result = formattedResult
+                    .Where( r => r.Timestamp >= startDate )
                     .Select( r => new CandleViewModel
                     {
                         Date = long.Parse( r.Timestamp.ToUnixTimestamp() ),
@@ -46,7 +46,9 @@ namespace StockPerformance.ExternalServices.AlphaVantage
                         High = r.High,
                         Low = r.Low,
                         Volume = r.Volume
-                    } ).ToList();
+                    } )
+                    .OrderBy( r => r.Date )
+                    .ToList();
 
                 return result;
             }

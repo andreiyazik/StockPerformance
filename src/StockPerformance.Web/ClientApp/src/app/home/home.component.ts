@@ -17,7 +17,7 @@ export class HomeComponent {
   ];
 
   public granularities = [
-    {id: 0, name: "Standard"},
+    {id: 0, name: "Daily"},
     {id: 1, name: "Intraday"},
   ];
 
@@ -49,6 +49,14 @@ export class HomeComponent {
         var response = result.response;
         if(response.dates.length > 7) {
           response.dates = [];
+        } else {
+          var dates = [];
+          response.dates.forEach(date => {
+            var parsedDate = new Date(parseInt(date) * 1000);
+            dates.push(parsedDate.toDateString());
+         });
+
+         response.dates = dates;
         }
         this.performance = result.response;
         this.loaded = true;

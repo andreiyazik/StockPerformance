@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{77AF105C-D6B3-4EC2-828C-FD41FAFC1F7A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{225879C6-6E00-45B8-83F0-2DEBCA33719A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockPerformance.API", "src\StockPerformance.API\StockPerformance.API.csproj", "{D81FF5AB-4AF5-43B6-982A-E491D62DD14E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockPerformance.ExternalServices.Contracts", "src\StockPerformance.ExternalServices.Contracts\StockPerformance.ExternalServices.Contracts.csproj", "{1B9B1165-24F3-4126-841B-754950C57FB5}"
@@ -21,9 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockPerformance.Persistenc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockPerformance.Web", "src\StockPerformance.Web\StockPerformance.Web.csproj", "{B8900821-28F2-49E6-8F63-62A256D7F67D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockPerformance.Persistence.SQLServer", "src\StockPerformance.Persistence.SQLServer\StockPerformance.Persistence.SQLServer.csproj", "{9AB4B76A-E0F6-410B-A704-DE7750087398}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockPerformance.Persistence.SQLServer", "src\StockPerformance.Persistence.SQLServer\StockPerformance.Persistence.SQLServer.csproj", "{9AB4B76A-E0F6-410B-A704-DE7750087398}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockPerformance.ExternalServices.AlphaVantage", "src\StockPerformance.ExternalServices.AlphaVantage\StockPerformance.ExternalServices.AlphaVantage.csproj", "{9E1E321E-D14A-4485-8179-1F64D2B6DC2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockPerformance.ExternalServices.AlphaVantage", "src\StockPerformance.ExternalServices.AlphaVantage\StockPerformance.ExternalServices.AlphaVantage.csproj", "{9E1E321E-D14A-4485-8179-1F64D2B6DC2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

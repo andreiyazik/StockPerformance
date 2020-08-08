@@ -16,6 +16,12 @@ namespace StockPerformance.Persistence.SQLServer
         protected override void OnModelCreating( ModelBuilder builder )
         {
             builder.ApplyConfigurationsFromAssembly( Assembly.GetExecutingAssembly() );
+
+            builder.Entity<Candle>( entity =>
+             {
+                 entity.HasKey( c => new { c.Timestamp, c.Symbol } );
+             } );
+
             base.OnModelCreating( builder );
         }
     }

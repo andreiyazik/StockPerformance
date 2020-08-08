@@ -1,10 +1,10 @@
 ﻿using MediatR;
-using Microsoft.Extensions.Configuration;
 using StockPerformance.API.Features;
 using StockPerformance.API.Helpers;
 using StockPerformance.API.Validators;
 using StockPerformance.Domain.ViewModels;
 using StockPerformance.ExternalServices.Contracts;
+using StockPerformance.Persistence.Contracts.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,27 +13,27 @@ using System.Threading.Tasks;
 
 namespace StockPerformance.API.Handlers
 {
-    public class GetHistoryDataQueryHandler : IRequestHandler<GetHistoryDataQuery, PerformanceComparisonViewModel>
+    public class GetPerformanceComparisonQueryHandler : IRequestHandler<GetPerformanceComparisonQuery, PerformanceComparisonViewModel>
     {
         private readonly IStockService _stockService;
-        private readonly IConfiguration _configuration;
+        private readonly ICandleRepository _candleRepository;
 
-        public GetHistoryDataQueryHandler( IStockService stockService, IConfiguration configuration )
+        public GetPerformanceComparisonQueryHandler( IStockService stockService, ICandleRepository candleRepository )
         {
             _stockService = stockService;
-            _configuration = configuration;
+            _candleRepository = candleRepository;
         }
 
-        public async Task<PerformanceComparisonViewModel> Handle( GetHistoryDataQuery request, CancellationToken cancellationToken )
+        public async Task<PerformanceComparisonViewModel> Handle( GetPerformanceComparisonQuery request, CancellationToken cancellationToken )
         {
             try
             {
                 ValidateSymbol( request );
 
-                var symbolToCompare = _configuration["SymbolToCompare"];
-
                 var symbolResult = await _stockService.GetHistoryAsync( request.Symbol, request.Period, request.Granularity );
-                var symbolToCompareResult = await _stockService.GetHistoryAsync( symbolToCompare, request.Period, request.Granularity );
+                var symbolToCompareResult = await _stockService.GetHistoryAsync( request.SymbolToCompare, request.Period, request.Granularity );
+
+                await _candleRepository.BulkInsertOrUpdateAsync( symbolToCompareResult.Select( s => s.CreateEntity( request.Symbol ) ).ToList() );
 
                 var symbolPerformance = symbolResult.Select( s => Double.Parse( s.Close.ToString() ) ).ToList();
                 var symbolToComparePerformance = symbolToCompareResult.Select( s => Double.Parse( s.Close.ToString() ) ).ToList();
@@ -51,7 +51,7 @@ namespace StockPerformance.API.Handlers
                 } );
                 result.PerformanceResults.Add( new PerformanceViewModel
                 {
-                    Symbol = symbolToCompare,
+                    Symbol = request.SymbolToCompare,
                     Results = StockHelper.CalculatePerformance( symbolToComparePerformance )
                 } );
 
@@ -63,7 +63,7 @@ namespace StockPerformance.API.Handlers
             }
         }
 
-        private static void ValidateSymbol( GetHistoryDataQuery request )
+        private static void ValidateSymbol( GetPerformanceComparisonQuery request )
         {
             var validator = new StockSymbolValidator();
             var validationResult = validator.Validate( request.Symbol );

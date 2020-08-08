@@ -2,7 +2,7 @@
 {
     public enum EGranularity
     {
-        Standard,
+        Daily,
         Intraday
     }
 }

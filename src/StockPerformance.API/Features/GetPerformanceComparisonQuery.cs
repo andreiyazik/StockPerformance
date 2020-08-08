@@ -1,20 +1,20 @@
 ﻿using MediatR;
 using StockPerformance.Domain.Enums;
 using StockPerformance.Domain.ViewModels;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace StockPerformance.API.Features
 {
-    public class GetHistoryDataQuery : IRequest<PerformanceComparisonViewModel>
+    public class GetPerformanceComparisonQuery : IRequest<PerformanceComparisonViewModel>
     {
         public string Symbol { get; private set; }
+        public string SymbolToCompare { get; private set; }
         public EPeriod Period { get; private set; }
         public EGranularity Granularity { get; private set; }
 
-        public GetHistoryDataQuery(string symbol, EPeriod period, EGranularity granularity)
+        public GetPerformanceComparisonQuery(string symbol, string symbolToCompare, EPeriod period, EGranularity granularity)
         {
             Symbol = symbol;
+            SymbolToCompare = symbolToCompare;
             Period = period;
             Granularity = granularity;
         }

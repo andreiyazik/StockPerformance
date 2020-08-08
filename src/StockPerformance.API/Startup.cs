@@ -2,14 +2,17 @@ using System.Reflection;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using StockPerformance.ExternalServices.AlphaVantage;
 using StockPerformance.ExternalServices.Contracts;
-using StockPerformance.ExternalServices.YahooFinance;
 using StockPerformance.Infrastructure.Configuration;
+using StockPerformance.Persistence.Contracts.Repositories;
+using StockPerformance.Persistence.SQLServer;
+using StockPerformance.Persistence.SQLServer.Repositories;
 
 namespace StockPerformance.API
 {
@@ -25,6 +28,11 @@ namespace StockPerformance.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices( IServiceCollection services )
         {
+            services.AddDbContext<DataContext>( options =>
+                     options.UseSqlServer(
+                         Configuration.GetConnectionString( "DefaultConnection" ),
+                         b => b.MigrationsAssembly( typeof( DataContext ).Assembly.FullName ) ) );
+
             services.AddCors( o => o.AddPolicy( "CorsPolicy", builder =>
             {
                 builder.AllowAnyOrigin()
@@ -36,13 +44,14 @@ namespace StockPerformance.API
             services.AddControllers();
 
             services.AddTransient<IStockService, AlphaVantageStockService>();
+            services.AddTransient<ICandleRepository, CandleRepository>();
 
             services.Configure<YahooFinanceSettings>( Configuration.GetSection( nameof( YahooFinanceSettings ) ) );
             services.Configure<AlphaVantageSettings>( Configuration.GetSection( nameof( AlphaVantageSettings ) ) );
 
             services.AddSwaggerGen( c =>
             {
-                c.SwaggerDoc( "v1", new OpenApiInfo { Title = "Trevl API", Version = "v1" } );
+                c.SwaggerDoc( "v1", new OpenApiInfo { Title = "StockPerformance API", Version = "v1" } );
             } );
         }
 
