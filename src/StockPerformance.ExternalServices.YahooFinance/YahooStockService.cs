@@ -2,11 +2,11 @@
 using Newtonsoft.Json;
 using RestSharp;
 using StockPerformance.Domain.Enums;
+using StockPerformance.Domain.ExtensionMethods;
 using StockPerformance.Domain.ViewModels;
 using StockPerformance.ExternalServices.Contracts;
 using StockPerformance.ExternalServices.YahooFinance.Models;
 using StockPerformance.Infrastructure.Configuration;
-using StockPerformance.Infrastructure.ExtensionMethods;
 using System;
 using System.Collections.Generic;
 using System.Linq;

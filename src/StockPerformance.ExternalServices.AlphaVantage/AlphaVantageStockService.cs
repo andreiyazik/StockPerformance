@@ -1,12 +1,11 @@
 ﻿using Microsoft.Extensions.Options;
 using ServiceStack;
-using ServiceStack.Text;
 using StockPerformance.Domain.Enums;
+using StockPerformance.Domain.ExtensionMethods;
 using StockPerformance.Domain.ViewModels;
 using StockPerformance.ExternalServices.Contracts;
 using StockPerformance.ExternalServices.Contracts.Models;
 using StockPerformance.Infrastructure.Configuration;
-using StockPerformance.Infrastructure.ExtensionMethods;
 using System;
 using System.Collections.Generic;
 using System.Linq;

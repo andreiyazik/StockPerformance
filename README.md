@@ -49,10 +49,10 @@ This layer contains configuration options, base classes and extension methods.
 **StockPerformance.Persistence.Contracts** layer contains interfaces for working with database repositories to store stocking history results. **StockPerformance.Persistence.SQLServer** layer contains repository
 implementations for SQL Server, as well as data context and migrations.
 
-### StockPerformance.API*
+### StockPerformance.API
 
 This layer contains REST Web API that can be used to query history comparison.
 
-### StockPerformance.Web*
+### StockPerformance.Web
 
 this layer is an Angular web application that can be used to query history comparison and display the result as a chart.

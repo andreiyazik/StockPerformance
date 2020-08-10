@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace StockPerformance.Infrastructure.ExtensionMethods
+namespace StockPerformance.Domain.ExtensionMethods
 {
     public static class Type
     {

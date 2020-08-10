@@ -1,4 +1,4 @@
-﻿using StockPerformance.Infrastructure.ExtensionMethods;
+﻿using StockPerformance.Domain.ExtensionMethods;
 using System;
 using System.Collections.Generic;
 

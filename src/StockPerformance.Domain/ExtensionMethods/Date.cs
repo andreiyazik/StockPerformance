@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace StockPerformance.Infrastructure.ExtensionMethods
+namespace StockPerformance.Domain.ExtensionMethods
 {
     public static class Date
     {
