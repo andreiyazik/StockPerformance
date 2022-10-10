@@ -1,0 +1,44 @@
+<form name="params">
+  <div class="form-inline">
+    <div class="form-group">
+        <input class="form-control" 
+        name="symbol" 
+        style="width: 250px;" 
+        placeholder="Enter symbol..." 
+        type="text" 
+        [(ngModel)]="symbol">
+    </div>
+    <select class="form-control" name="period" [(ngModel)]="period">
+      <option *ngFor="let p of periods" [ngValue]="p.id">{{p.name}}</option>
+    </select>
+    <select class="form-control" name="granularity" [(ngModel)]="granularity">
+      <option *ngFor="let g of granularities" [ngValue]="g.id">{{g.name}}</option>
+    </select>
+    <button type="submit" class="btn btn-primary" (click)="getPerformance()" [disabled]="!symbol">Get Performance</button>
+  </div>
+</form>
+
+<div *ngIf="loading">
+  <img src="../../assets/loading.gif" />
+</div>
+
+<p class="error-message" *ngIf="isError">{{errorMessage}}</p>
+
+<kendo-chart *ngIf="loaded">
+  <kendo-chart-tooltip>
+  </kendo-chart-tooltip>
+  <kendo-chart-legend position="bottom" [visible]="true">
+  </kendo-chart-legend>
+  <kendo-chart-title text="Stock Performance Comparison"></kendo-chart-title>
+  <kendo-chart-category-axis>
+      <kendo-chart-category-axis-item
+          [categories]="performance.dates">
+      </kendo-chart-category-axis-item>
+  </kendo-chart-category-axis>
+  <kendo-chart-series>
+    <kendo-chart-series-item type="line"
+                *ngFor="let item of performance.performanceResults"
+                [data]="item.results" [name]="item.symbol">
+            </kendo-chart-series-item>
+  </kendo-chart-series>
+</kendo-chart>
